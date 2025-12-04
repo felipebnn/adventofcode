@@ -39,7 +39,7 @@ should_visit = set()
 
 for y in range(len(grid)):
     for x in range(len(grid[y])):
-        if count_papers(x, y) < 4:
+        if get_xy(x, y) == '@' and count_papers(x, y) < 4:
             should_visit.add((x, y))
 
 while should_visit:
