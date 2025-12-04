@@ -5,6 +5,13 @@ with open('input.txt', 'r') as f:
 
 grid = [ list(row_str) for row_str in txt.split('\n') ]
 
+def debug_print():
+    print('=====')
+    for y in range(len(grid)):
+        for x in range(len(grid[y])):
+            print(grid[y][x], end='')
+        print()
+
 def get_xy(x, y):
     if y < 0 or x < 0 or y >= len(grid) or x >= len(grid[y]):
         return '.'
@@ -21,30 +28,19 @@ sibling_deltas = [
 ]
 
 def count_papers(x, y):
-    count = 0
-
-    for (d_x, d_y) in sibling_deltas:
-        if d_y == 0 and d_x == 0:
-            continue
-        if get_xy(x+d_x, y+d_y) == '@':
-            count += 1
-
-    return count
-
+    return sum(
+        1
+        for (d_x, d_y) in sibling_deltas
+        if get_xy(x+d_x, y+d_y) == '@'
+    )
 
 ans = 0
 should_visit = set()
 
 for y in range(len(grid)):
     for x in range(len(grid[y])):
-        should_visit.add((x, y))
-
-def debug_print():
-    print('=====')
-    for y in range(len(grid)):
-        for x in range(len(grid[y])):
-            print(grid[y][x], end='')
-        print()
+        if count_papers(x, y) < 4:
+            should_visit.add((x, y))
 
 while should_visit:
     neo_should_visit = set()
