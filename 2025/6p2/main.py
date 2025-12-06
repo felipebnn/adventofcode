@@ -6,7 +6,6 @@ with open('input.txt', 'r') as f:
 # transpose matrix
 m = list(zip(*txt.split('\n')))
 
-op = ''
 ans = 0
 x = 0
 for row in m:
