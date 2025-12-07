@@ -18,4 +18,4 @@ for row in rows:
             neo_beams[beam] += count
     beams = neo_beams
 
-print(sum(x for x in beams.values()))
+print(sum(beams.values()))

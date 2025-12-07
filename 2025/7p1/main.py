@@ -13,10 +13,8 @@ for row in rows:
     for beam in beams:
         if row[beam] == '^':
             splits += 1
-            if beam > 0:
-                neo_beams.add(beam-1)
-            if beam+1 < len(row):
-                neo_beams.add(beam+1)
+            neo_beams.add(beam-1)
+            neo_beams.add(beam+1)
         else:
             neo_beams.add(beam)
     beams = neo_beams
