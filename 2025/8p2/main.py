@@ -1,4 +1,5 @@
 #!/bin/env python3
+import heapq
 
 with open('input.txt', 'r') as f:
     txt = f.read().strip('\n')
@@ -27,16 +28,15 @@ for i in range(len(nodes)-1):
             sum((c1-c2) ** 2 for c1, c2 in zip(a.coord, b.coord)),
             a, b
         ))
-distances.sort()
+heapq.heapify(distances)
 
 connections = 0
-for _, a, b in distances:
+while connections+1 < len(nodes):
+    _, a, b = heapq.heappop(distances)
     if a.get_parent() == b.get_parent():
         continue
     
     connections += 1
     a.add(b)
     
-    if connections == len(nodes)-1:
-        print(a.coord[0] * b.coord[0])
-        break
+print(a.coord[0] * b.coord[0])

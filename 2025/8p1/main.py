@@ -1,4 +1,6 @@
 #!/bin/env python3
+import heapq
+
 from collections import defaultdict
 from math import prod
 
@@ -30,14 +32,10 @@ for i in range(len(nodes)-1):
             sum((c1-c2) ** 2 for c1, c2 in zip(a.coord, b.coord)),
             a, b
         ))
-distances.sort()
+heapq.heapify(distances)
 
-connections = 0
-for _, a, b in distances:
-    connections += 1
-    if connections > 1000:
-        break
-
+for _ in range(1000):
+    _, a, b = heapq.heappop(distances)
     if a.get_parent() == b.get_parent():
         continue
 
@@ -46,5 +44,6 @@ for _, a, b in distances:
 circuits = defaultdict(list)
 for n in nodes:
     circuits[n.get_parent()].append(n)
-print(-prod(sorted([ -len(l) for l in circuits.values()])[:3]))
 
+top_3 = sorted([ -len(l) for l in circuits.values() ])[:3]
+print(-prod(top_3))
