@@ -5,7 +5,7 @@ with open('input.txt', 'r') as f:
     txt = f.read().strip('\n')
 
 def solve_min_sum_linear_system(matrix, joltages):
-    p = pulp.LpProblem('10p2', pulp.LpMinimize) 
+    p = pulp.LpProblem()
 
     # bounded decision variables - [0, max_joltage]
     variables = [
@@ -18,7 +18,7 @@ def solve_min_sum_linear_system(matrix, joltages):
 
     # add constraints for each linear equation
     for coefficients, joltage in zip(matrix, joltages):
-        equation = pulp.lpSum(x for x, c in zip(variables, coefficients) if c)
+        equation = pulp.lpSum(c * x for c, x in zip(coefficients, variables))
         p += equation == joltage
 
     p.solve(pulp.PULP_CBC_CMD(msg=0))
