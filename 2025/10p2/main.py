@@ -23,7 +23,7 @@ def solve_min_sum_linear_system(matrix, joltages):
 
     p.solve(pulp.PULP_CBC_CMD(msg=0))
 
-    return sum(int(pulp.value(x)) for x in variables)
+    return int(pulp.value(p.objective))
 
 total = 0
 for machine_str in txt.split('\n'):
