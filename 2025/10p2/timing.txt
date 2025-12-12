@@ -1,1 +1,0 @@
-./main.py  0.39s user 0.06s system 95% cpu 0.479 total
